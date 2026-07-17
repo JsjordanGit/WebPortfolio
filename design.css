@@ -505,3 +505,36 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* --- Navigation CV Button Styles --- */
+.nav-links {
+    align-items: center; /* Vertically align the button with other links */
+}
+
+.cv-btn {
+    background: var(--purple-bright);
+    color: var(--bg) !important; /* Forces the text to remain dark over the bright background */
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+    box-shadow: 0 0 12px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s !important;
+}
+
+.nav-links .cv-btn:hover {
+    background: #fff;
+    color: var(--bg) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0 18px var(--shadow);
+}
+
+/* Ensure proper vertical alignment on smaller screen layouts */
+@media (max-width: 820px) {
+    .nav-links {
+        align-items: flex-start;
+    }
+    
+    .cv-btn {
+        margin-top: 4px;
+        padding: 6px 14px;
+    }
+}
