@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. GLOBAL STYLES & VARIABLES
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -30,6 +33,9 @@ a {
     text-decoration: none;
 }
 
+/* ==========================================================================
+   2. NAVIGATION HEADER & CV BUTTON
+   ========================================================================== */
 header {
     position: fixed;
     top: 0;
@@ -57,6 +63,7 @@ nav {
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 28px;
     list-style: none;
     color: #fff;
@@ -73,6 +80,26 @@ nav {
     color: var(--purple-bright);
 }
 
+.cv-btn {
+    background: var(--purple-bright);
+    color: var(--bg) !important;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+    box-shadow: 0 0 12px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s !important;
+}
+
+.nav-links .cv-btn:hover {
+    background: #fff;
+    color: var(--bg) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0 18px var(--shadow);
+}
+
+/* ==========================================================================
+   3. LAYOUT & TYPOGRAPHY
+   ========================================================================== */
 section {
     max-width: 1120px;
     margin: 0 auto;
@@ -96,6 +123,35 @@ section {
     margin-bottom: 34px;
 }
 
+.section-title {
+    margin-bottom: 34px;
+    color: #fff;
+    font-size: 34px;
+    text-align: center;
+}
+
+.section-title.left {
+    text-align: left;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 58px;
+    height: 4px;
+    margin: 10px auto 0;
+    border-radius: 999px;
+    background: var(--purple-bright);
+    box-shadow: 0 0 14px var(--shadow);
+}
+
+.section-title.left::after {
+    margin-left: 0;
+}
+
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
 #hero {
     min-height: 100vh;
     display: grid;
@@ -253,32 +309,9 @@ section {
     letter-spacing: 0;
 }
 
-.section-title {
-    margin-bottom: 34px;
-    color: #fff;
-    font-size: 34px;
-    text-align: center;
-}
-
-.section-title.left {
-    text-align: left;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 58px;
-    height: 4px;
-    margin: 10px auto 0;
-    border-radius: 999px;
-    background: var(--purple-bright);
-    box-shadow: 0 0 14px var(--shadow);
-}
-
-.section-title.left::after {
-    margin-left: 0;
-}
-
+/* ==========================================================================
+   5. CARDS & UI COMPONENTS
+   ========================================================================== */
 .about-content,
 .split-section {
     display: grid;
@@ -373,7 +406,11 @@ section {
 }
 
 .project-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: grid;
+    gap: 32px;
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .timeline-item span,
@@ -400,11 +437,6 @@ section {
     margin-top: 14px;
 }
 
-.project-card {
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-}
-
 .project-card:hover,
 .contact-card:hover,
 .credential-card:hover,
@@ -412,38 +444,6 @@ section {
     border-color: rgba(192, 132, 252, 0.6);
     box-shadow: 0 18px 42px rgba(168, 85, 247, 0.18);
     transform: translateY(-4px);
-}
-
-.project-img {
-    width: 100%;
-    height: 170px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 42px;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--purple-dark), var(--purple-bright));
-}
-
-.project-img.coffee {
-    background: linear-gradient(135deg, #4c1d95, #8b5cf6);
-}
-
-.project-img.crypto {
-    background: linear-gradient(135deg, #111827, #a855f7);
-}
-
-.project-img.game {
-    background: linear-gradient(135deg, #581c87, #c084fc);
-}
-
-.project-info {
-    padding: 24px;
-}
-
-.project-info p {
-    margin-bottom: 14px;
 }
 
 .contact-card {
@@ -457,6 +457,80 @@ section {
     overflow-wrap: anywhere;
 }
 
+/* ==========================================================================
+   6. VERTICAL PROJECT GALLERY CARDS (FIXED ZOOM & PROPORTIONS)
+   ========================================================================== */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.project-gallery-container {
+    position: relative;
+    width: 100%;
+    height: auto; /* Fixed: Removed strict pixel heights causing stretch-zoom */
+    aspect-ratio: 16 / 9; /* Fixed: Keeps standard widescreen proportions automatically */
+    background: var(--panel-strong);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+}
+
+.project-images-flex {
+    display: flex;
+    width: 100%;
+    height: 60%;
+    gap: 4px;
+    background: var(--line);
+}
+
+.project-thumb {
+    flex: 1 1 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Fixed: Changes from cover to contain to view the entire crop-free image */
+    background-color: #1a1f26; /* Clean background padding behind custom screenshots */
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.9);
+}
+
+.project-thumb:hover {
+    transform: scale(1.03); /* Subtle scale zoom to keep text/graphics crisp */
+    filter: brightness(1.05);
+    z-index: 2;
+}
+
+.project-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    background: var(--purple-bright);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.5px;
+}
+
+.project-info {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-info p {
+    margin-bottom: 14px;
+}
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
 footer {
     background: #171b22;
     color: var(--muted);
@@ -465,6 +539,9 @@ footer {
     font-size: 14px;
 }
 
+/* ==========================================================================
+   8. MEDIA QUERIES (RESPONSIVE WORKFLOWS)
+   ========================================================================== */
 @media (max-width: 820px) {
     nav {
         align-items: flex-start;
@@ -473,8 +550,14 @@ footer {
     }
 
     .nav-links {
+        align-items: flex-start;
         flex-wrap: wrap;
         gap: 12px 18px;
+    }
+
+    .cv-btn {
+        margin-top: 4px;
+        padding: 6px 14px;
     }
 
     section {
@@ -505,36 +588,11 @@ footer {
         grid-template-columns: 1fr;
     }
 }
-/* --- Navigation CV Button Styles --- */
-.nav-links {
-    align-items: center; /* Vertically align the button with other links */
-}
 
-.cv-btn {
-    background: var(--purple-bright);
-    color: var(--bg) !important; /* Forces the text to remain dark over the bright background */
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-weight: 800;
-    box-shadow: 0 0 12px var(--shadow);
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s !important;
-}
-
-.nav-links .cv-btn:hover {
-    background: #fff;
-    color: var(--bg) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 0 18px var(--shadow);
-}
-
-/* Ensure proper vertical alignment on smaller screen layouts */
-@media (max-width: 820px) {
-    .nav-links {
-        align-items: flex-start;
-    }
-    
-    .cv-btn {
-        margin-top: 4px;
-        padding: 6px 14px;
-    }
+/* --- Clickable Certificate Card Overrides --- */
+.clickable-card {
+    display: block;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
