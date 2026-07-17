@@ -1,0 +1,5 @@
+# Ignore all private drafts, raw assets, and unreleased PDFs
+assets/
+pics/
+*.html
+*.css
